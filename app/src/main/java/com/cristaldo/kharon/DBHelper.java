@@ -65,11 +65,14 @@ public class DBHelper extends SQLiteAssetHelper {
         double saldo = 0.0;
 
         try {
+            // El "?" es un placeholder que será reemplazado de forma segura para prevenir inyección SQL
             String query = "SELECT " + COL_SALDO + " FROM " + TABLE_USUARIO +
                     " WHERE " + COL_NOMBRE + " = ?";
             cursor = db.rawQuery(query, new String[]{nombre});
 
+            // si devuelve true significa que se encontro al menos un registro
             if (cursor.moveToFirst()) {
+                // getDouble por el tipo de dato de $ en db
                 saldo = cursor.getDouble(0);
             }
         } catch (Exception e) {
@@ -90,6 +93,7 @@ public class DBHelper extends SQLiteAssetHelper {
      * @return true si la actualización fue exitosa, false en caso contrario
      */
     public boolean actualizarSaldo(String nombre, double montoAgregar) {
+        // obtiene nuestra DB que es en la que podemos escribir
         SQLiteDatabase db = getWritableDatabase();
         boolean actualizado = false;
 
@@ -99,6 +103,7 @@ public class DBHelper extends SQLiteAssetHelper {
             double nuevoSaldo = saldoActual + montoAgregar;
 
             // Actualizar saldo
+            // ContentValues  es un tipo de datos de android que es un diccionario de datos
             ContentValues valores = new ContentValues();
             valores.put(COL_SALDO, nuevoSaldo);
 

@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         // Inicializacion de variables vacias
         userName = "";
         password = "";
+        // int o string? para probar mas adelante.
         userID = "";
 
         // IDs de XMLS
