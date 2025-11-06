@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">kharon</string>
+    <string name="ingrese_aqui"><u>Ingrese aquí</u></string>
+    <string name="registrese_aqui"><u>Regístrese aquí</u></string>
+</resources>
