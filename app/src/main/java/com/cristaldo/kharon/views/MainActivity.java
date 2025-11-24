@@ -2,7 +2,6 @@ package com.cristaldo.kharon.views;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -14,18 +13,15 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.cristaldo.kharon.R;
-import com.cristaldo.kharon.dao.DBHelper;
+import com.cristaldo.kharon.dao.UsuarioDAO;
+import com.cristaldo.kharon.models.Usuario;
 
 public class MainActivity extends AppCompatActivity {
 
     // Declaracion de variables
-    Button btn_ingresar;
-    EditText inputUsuario;
-    EditText inputContra;
-
-    String userName, userID, password;
-
-    DBHelper dbHelper;
+    private EditText etUsername, etPassword;
+    private Button btnIngresar;
+    private UsuarioDAO usuarioDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,46 +34,42 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        // Inicializacion de variables vacias
-        userName = "";
-        password = "";
-        // int o string? para probar mas adelante.
-        userID = "";
+        // inicializar DAO
+        usuarioDAO = new UsuarioDAO(this);
 
-        // IDs de XMLS
-        btn_ingresar = findViewById(R.id.btnLogin);
-        inputUsuario = findViewById(R.id.inputUsuario);
-        inputContra = findViewById(R.id.inputContra);
+        // vincular variables con vistas
+        etUsername = findViewById(R.id.inputUsuario);
+        etPassword = findViewById(R.id.inputContra);
+        btnIngresar = findViewById(R.id.btnLogin);
 
-        // Instancia de DBHelper (CRUD)
-        dbHelper = new DBHelper(MainActivity.this);
+        btnIngresar.setOnClickListener(view -> iniciarSesion());
+    }
 
-        btn_ingresar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    private void iniciarSesion() {
+        // obtener el txt
+        String username = etUsername.getText().toString().trim();
+        String password = etPassword.getText().toString().trim();
 
-                userName = inputUsuario.getText().toString().trim();
-                password = inputContra.getText().toString().trim();
+        if (username.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "Complete todos los campos", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-                if (dbHelper.verificarUsuario(userName, password)) {
-                    // Toast de bienvenida
-                    Toast.makeText(MainActivity.this,
-                            "¡Bienvenido " + userName + "!",
-                            Toast.LENGTH_SHORT).show();
+        // abre db y hace login
+        usuarioDAO.abrir();
+        Usuario usuario = usuarioDAO.login(username, password);
+        usuarioDAO.cerrar();
 
-                    Intent navegacion = new Intent(MainActivity.this, Inicio.class);
-                    navegacion.putExtra("NOMBRE_USUARIO", userName);
-                    startActivity(navegacion);
+        if(usuario != null) {
+            Toast.makeText(this, "Bienvenido " + usuario.getUsername() , Toast.LENGTH_SHORT).show();
+            Intent navegacion = new Intent(MainActivity.this, Inicio.class);
+            navegacion.putExtra("usuarioId", usuario.getIdUsuario());
+            startActivity(navegacion);
 
-                }
+        } else {
+            Toast.makeText(this, "Usuario o contraseña incorrecta", Toast.LENGTH_SHORT).show();
+        }
 
-                // Toast.makeText(MainActivity.this, "Hola desde login", Toast.LENGTH_SHORT).show();
-                // intent es una "intension" de una accion
-                // Intent recibe la pantalla actual donde estamos parados + la pantalla donde queremos ir
-                // Intent navegacion = new Intent(MainActivity.this, Inicio.class);
-                // startActivity(navegacion);
-            }
-        });
     }
 
 }
