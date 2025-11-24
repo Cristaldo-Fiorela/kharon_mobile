@@ -1,4 +1,4 @@
-package com.cristaldo.kharon;
+package com.cristaldo.kharon.dao;
 
 import android.content.ContentValues;
 import android.content.Context;

@@ -1,4 +1,4 @@
-package com.cristaldo.kharon;
+package com.cristaldo.kharon.views;
 
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.cristaldo.kharon.R;
+import com.cristaldo.kharon.dao.DBHelper;
 
 import java.text.DecimalFormat;
 
