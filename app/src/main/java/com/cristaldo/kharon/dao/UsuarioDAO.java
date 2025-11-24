@@ -28,11 +28,6 @@ public class UsuarioDAO {
 
     // ========== CREATE ==========
 
-    /**
-     * Insertar un nuevo usuario
-     * @return ID del usuario insertado, o -1 si falla
-     * ID es autoincremental en DB por lo que no se envia
-     */
     public long insertarUsuario(Usuario usuario) {
         ContentValues valores = new ContentValues();
         valores.put("username", usuario.getUsername());
@@ -44,11 +39,6 @@ public class UsuarioDAO {
 
     // ========== READ ==========
 
-    /**
-     * LOGIN
-     * Busca usuario por username y password
-     * @return Usuario si existe, null si no existe
-     */
     public Usuario login(String username, String password) {
         Usuario usuario = null;
 
@@ -75,9 +65,6 @@ public class UsuarioDAO {
         return usuario;
     }
 
-    /**
-     * Obtener usuario por ID
-     */
     public Usuario obtenerUsuarioPorId(int id) {
         Usuario usuario = null;
 
@@ -104,10 +91,6 @@ public class UsuarioDAO {
 
     // ========== UPDATE ==========
 
-    /**
-     * Actualizar el saldo de un usuario
-     * @return cantidad de filas actualizadas (1 si ok, 0 si falla)
-     */
     public int actualizarSaldo(int idUsuario, double nuevoSaldo) {
         ContentValues valores = new ContentValues();
         valores.put("saldoDisponible", nuevoSaldo);
@@ -120,9 +103,6 @@ public class UsuarioDAO {
         );
     }
 
-    /**
-     * Actualizar usuario completo
-     */
     public int actualizarUsuario(Usuario usuario) {
         ContentValues valores = new ContentValues();
         valores.put("username", usuario.getUsername());
@@ -139,9 +119,6 @@ public class UsuarioDAO {
 
     // ========== MÉTODOS AUXILIARES ==========
 
-    /**
-     * Verificar si existe un username
-     */
     public boolean existeUsername(String username) {
         Cursor cursor = database.query(
                 "usuario",
