@@ -1,7 +1,7 @@
 package com.cristaldo.kharon.models;
 
 public class Usuario {
-    private int id_usuario;
+    private int idUsuario;
     private String password;
     private String username;
     private double saldoDisponible;
@@ -17,19 +17,15 @@ public class Usuario {
     }
 
     //  constructor con ID para objetos que se seleccionan de la DB (ya existen)
-    public Usuario(int id_usuario, String password, String username, double saldoDisponible) {
-        this.id_usuario = id_usuario;
+    public Usuario(int idUsuario, String password, String username, double saldoDisponible) {
+        this.idUsuario = idUsuario;
         this.password = password;
         this.username = username;
         this.saldoDisponible = saldoDisponible;
     }
 
-    public int getId_usuario() {
-        return id_usuario;
-    }
-
-    public void setId_usuario(int id_usuario) {
-        this.id_usuario = id_usuario;
+    public int getIdUsuario() {
+        return idUsuario;
     }
 
     public String getPassword() {
@@ -59,7 +55,7 @@ public class Usuario {
     @Override
     public String toString() {
         return "Usuario{" +
-                "id_usuario=" + id_usuario +
+                "idUsuario=" + idUsuario +
                 ", username='" + username + '\'' +
                 ", saldoDisponible=" + saldoDisponible +
                 '}';
