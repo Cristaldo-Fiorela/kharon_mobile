@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gris"
+    android:background="@color/white"
     android:id="@+id/transferenciaAlias"
-    >
+    tools:context=".views.TransferenciaAlias">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -34,6 +35,8 @@
                 app:layout_constraintEnd_toStartOf="@id/backBtnToolbarAlias"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
+                android:padding="1dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 />
             <TextView
                 android:id="@+id/tituloToolbarAlias"
@@ -58,7 +61,7 @@
             app:layout_constraintTop_toBottomOf="@id/toolbarAlias"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/btnAlias"
+            app:layout_constraintBottom_toBottomOf="@id/btnAliasSgt"
         >
             <TextView
                 android:id="@+id/labelAlias"
@@ -89,7 +92,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
         <Button
             style="@style/TituloMediano"
-            android:id="@+id/btnAlias"
+            android:id="@+id/btnAliasSgt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Siguiente"

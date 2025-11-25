@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Kharon">
         <activity
+            android:name=".views.TransferenciaMonto"
+            android:exported="false" />
+        <activity
+            android:name=".views.TransferenciaAlias"
+            android:exported="false" />
+        <activity
             android:name=".views.Inicio"
             android:exported="false" />
         <activity
