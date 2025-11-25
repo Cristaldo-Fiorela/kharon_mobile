@@ -132,4 +132,30 @@ public class TransaccionDAO {
         cursor.close();
         return transacciones;
     }
+
+    // ========= UTILS
+    public boolean existeNumeroOperacion(String numeroOperacion) {
+        Cursor cursor = database.query(
+                "transaccion",
+                new String[]{"idTransaccion"},
+                "numeroOperacion = ?",
+                new String[]{numeroOperacion},
+                null, null, null
+        );
+
+        boolean existe = cursor.getCount() > 0;
+        cursor.close();
+        return existe;
+    }
+
+    public String generarNumeroOperacion() {
+        String numero;
+        do {
+            long timestamp = System.currentTimeMillis();
+            int random = (int) (Math.random() * 1000);
+            numero = "#AO" + timestamp + random;
+        } while (existeNumeroOperacion(numero));
+
+        return numero;
+    }
 }
