@@ -13,6 +13,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.cristaldo.kharon.R;
+import com.cristaldo.kharon.dao.AliasDAO;
 import com.cristaldo.kharon.dao.UsuarioDAO;
 import com.cristaldo.kharon.models.Usuario;
 
@@ -61,7 +62,19 @@ public class MainActivity extends AppCompatActivity {
         usuarioDAO.cerrar();
 
         if(usuario != null) {
-            Toast.makeText(this, "Bienvenido " + usuario.getUsername() , Toast.LENGTH_SHORT).show();
+            AliasDAO aliasDAO = new AliasDAO(this);
+            aliasDAO.abrir();
+
+            if (!aliasDAO.usuarioTieneAlias(usuario.getIdUsuario())) {
+                // Crear alias automáticamente
+                aliasDAO.crearAliasAutomatico(usuario.getIdUsuario(), usuario.getUsername());
+                Toast.makeText(this, "Se creó tu alias: " + usuario.getUsername() + ".KHARON", Toast.LENGTH_SHORT).show();
+            }
+
+            aliasDAO.cerrar();
+
+            // Navegar a inicio
+            Toast.makeText(this, "Bienvenido " + usuario.getUsername(), Toast.LENGTH_SHORT).show();
             Intent navegacion = new Intent(MainActivity.this, Inicio.class);
             navegacion.putExtra("usuarioId", usuario.getIdUsuario());
             startActivity(navegacion);
@@ -69,7 +82,5 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Usuario o contraseña incorrecta", Toast.LENGTH_SHORT).show();
         }
-
     }
-
 }

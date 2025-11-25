@@ -7,13 +7,13 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.cristaldo.kharon.models.Alias;
 
-public class AliasDao {
+public class AliasDAO {
     // gestiona la DB
     private DBHelper dbHelper;
     // nativo de android, mi conexion activa de db
     private SQLiteDatabase database;
 
-    public AliasDao(Context context) {
+    public AliasDAO(Context context) {
         dbHelper = new DBHelper(context);
     }
 
@@ -111,6 +111,17 @@ public class AliasDao {
         return existe;
     }
 
+    public boolean usuarioTieneAlias(int idUsuario) {
+        Cursor cursor = database.query(
+                "alias",
+                new String[]{"ID_alias"},
+                "idUsuario = ?",
+                new String[]{String.valueOf(idUsuario)},
+                null, null, null
+        );
 
-
+        boolean tiene = cursor.getCount() > 0;
+        cursor.close();
+        return tiene;
+    }
 }
