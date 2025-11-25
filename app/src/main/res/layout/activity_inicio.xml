@@ -368,6 +368,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginVertical="5dp"
             />
+
+            <!-- ULTIMOS 3 MOVIMIENTOS LISTA-->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/movimientoRow"
                 android:layout_width="0dp"
@@ -456,8 +458,30 @@
                         />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:id="@+id/dividerHorizontal2"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="@color/grisClaro"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/movimientoRow"
+                android:layout_marginVertical="5dp"
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Ver todo"
+                android:textStyle="bold"
+                android:textColor="@color/celeste"
+                app:layout_constraintTop_toBottomOf="@id/dividerHorizontal2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textAlignment="center"
+                />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
