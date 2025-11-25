@@ -114,7 +114,7 @@ public class AliasDAO {
     public boolean usuarioTieneAlias(int idUsuario) {
         Cursor cursor = database.query(
                 "alias",
-                new String[]{"ID_alias"},
+                new String[]{"idAlias"},
                 "idUsuario = ?",
                 new String[]{String.valueOf(idUsuario)},
                 null, null, null

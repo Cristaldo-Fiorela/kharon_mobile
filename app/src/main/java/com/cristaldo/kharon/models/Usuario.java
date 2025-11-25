@@ -10,7 +10,7 @@ public class Usuario {
     }
 
     // el id se genera en la DB con autoincrement
-    public Usuario(String password, String username, double saldoDisponible) {
+    public Usuario(String username, String password, double saldoDisponible) {
         this.password = password;
         this.username = username;
         this.saldoDisponible = saldoDisponible;
