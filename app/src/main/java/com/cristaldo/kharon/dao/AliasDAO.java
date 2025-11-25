@@ -62,13 +62,14 @@ public class AliasDAO {
 
     // ========= READ Obtener usuario por nombre de alias
     public int obtenerIdUsuarioPorAlias(String nombreAlias) {
+        String alias = nombreAlias.toLowerCase();
         int idUsuario = -1;
 
         Cursor cursor = database.query(
                 "alias",
                 new String[]{"idUsuario"},
                 "nombreAlias = ?",
-                new String[]{nombreAlias},
+                new String[]{alias},
                 null, null, null
         );
 
@@ -83,7 +84,7 @@ public class AliasDAO {
     // ======= UPDATE ALIAS
     public int actualizarNombreAlias(int idUsuario, String nuevoNombreAlias) {
         ContentValues valores = new ContentValues();
-        valores.put("nombreAlias", nuevoNombreAlias);
+        valores.put("nombreAlias", nuevoNombreAlias.toLowerCase());
 
         return database.update(
                 "alias",
@@ -102,8 +103,9 @@ public class AliasDAO {
         if (usernameLimpio.contains("@")) {
             usernameLimpio = usernameLimpio.split("@")[0];
         }
+        String alias = usernameLimpio + ".kharon";
 
-        return usernameLimpio + ".KHARON";
+        return alias.toLowerCase();
     }
 
     private String generarCVU() {
