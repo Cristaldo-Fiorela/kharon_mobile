@@ -15,7 +15,7 @@ import com.cristaldo.kharon.R;
 public class Inicio extends AppCompatActivity {
 
     private Button btnTransferirView;
-    private int usuarioId;
+    private int idUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,14 +29,14 @@ public class Inicio extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        usuarioId = intent.getIntExtra("usuarioId", -1);
+        idUsuario = intent.getIntExtra("usuarioId", -1);
 
         // vinculacion con view
         btnTransferirView = findViewById(R.id.btnTransferirV);
 
         btnTransferirView.setOnClickListener(v -> {
                 Intent navegacion = new Intent(Inicio.this, TransferenciaAlias.class);
-                navegacion.putExtra("usuarioId", usuarioId);
+                navegacion.putExtra("idUsuario", idUsuario);
                 startActivity(navegacion);
             }
         );

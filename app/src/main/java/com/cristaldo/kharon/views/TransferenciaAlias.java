@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -18,7 +17,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.cristaldo.kharon.R;
 
 public class TransferenciaAlias extends AppCompatActivity {
-    private int usuarioId;
+    private int idUsuario;
     private Button btnAliasSgt;
     private EditText etAlias;
     private String alias;
@@ -37,7 +36,7 @@ public class TransferenciaAlias extends AppCompatActivity {
         alias = "";
 
         Intent intent = getIntent();
-        usuarioId = intent.getIntExtra("usuarioId", -1);
+        idUsuario = intent.getIntExtra("idUsuario", -1);
 
         btnAliasSgt = findViewById(R.id.btnAliasSgt);
         backBtnToolbarAlias = findViewById(R.id.backBtnToolbarAlias);
@@ -67,7 +66,7 @@ public class TransferenciaAlias extends AppCompatActivity {
         if(btnAliasSgt.isEnabled()) {
             btnAliasSgt.setOnClickListener(v -> {
                 Intent navegacion = new Intent(TransferenciaAlias.this, TransferenciaMonto.class);
-                navegacion.putExtra("usuarioId", usuarioId);
+                navegacion.putExtra("idUsuario", idUsuario);
                 navegacion.putExtra("alias", alias);
                 startActivity(navegacion);
             });

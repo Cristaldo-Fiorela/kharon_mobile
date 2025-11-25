@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
             // Navegar a inicio
             Toast.makeText(this, "Bienvenido " + usuario.getUsername(), Toast.LENGTH_SHORT).show();
             Intent navegacion = new Intent(MainActivity.this, Inicio.class);
-            navegacion.putExtra("usuarioId", usuario.getIdUsuario());
+            navegacion.putExtra("idUsuario", usuario.getIdUsuario());
             startActivity(navegacion);
 
         } else {
