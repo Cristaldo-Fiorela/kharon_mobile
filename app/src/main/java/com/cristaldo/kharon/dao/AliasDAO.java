@@ -60,6 +60,26 @@ public class AliasDAO {
         return alias;
     }
 
+    // ========= READ Obtener usuario por nombre de alias
+    public int obtenerIdUsuarioPorAlias(String nombreAlias) {
+        int idUsuario = -1;
+
+        Cursor cursor = database.query(
+                "alias",
+                new String[]{"idUsuario"},
+                "nombreAlias = ?",
+                new String[]{nombreAlias},
+                null, null, null
+        );
+
+        if (cursor.moveToFirst()) {
+            idUsuario = cursor.getInt(cursor.getColumnIndexOrThrow("idUsuario"));
+        }
+
+        cursor.close();
+        return idUsuario;
+    }
+
     // ======= UPDATE ALIAS
     public int actualizarNombreAlias(int idUsuario, String nuevoNombreAlias) {
         ContentValues valores = new ContentValues();

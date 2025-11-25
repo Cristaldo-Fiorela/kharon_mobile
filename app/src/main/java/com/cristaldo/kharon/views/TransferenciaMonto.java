@@ -17,6 +17,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.cristaldo.kharon.R;
+import com.cristaldo.kharon.dao.AliasDAO;
 import com.cristaldo.kharon.dao.TransaccionDAO;
 import com.cristaldo.kharon.dao.UsuarioDAO;
 import com.cristaldo.kharon.models.Transaccion;
@@ -36,6 +37,7 @@ public class TransferenciaMonto extends AppCompatActivity {
     private double monto, saldoDisponible;
     private UsuarioDAO usuarioDAO;
     private TransaccionDAO transaccionDAO;
+    private AliasDAO aliasDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,7 @@ public class TransferenciaMonto extends AppCompatActivity {
         // inicializar DAOs
         usuarioDAO = new UsuarioDAO(this);
         transaccionDAO = new TransaccionDAO(this);
+        aliasDAO = new AliasDAO(this);
 
         Intent intent = getIntent();
         idUsuario = intent.getIntExtra("idUsuario", -1);
@@ -88,6 +91,7 @@ public class TransferenciaMonto extends AppCompatActivity {
             getOnBackPressedDispatcher().onBackPressed();
         });
     }
+
     private void cargarDatosUsuario() {
         android.util.Log.d("TransferenciaMonto", "ID Usuario recibido: " + idUsuario);
 
@@ -136,6 +140,16 @@ public class TransferenciaMonto extends AppCompatActivity {
             return;
         }
 
+        // NUEVO: Validar que el alias exista
+        aliasDAO.abrir();
+        boolean aliasExiste = aliasDAO.existeAlias(alias);
+        aliasDAO.cerrar();
+
+        if (!aliasExiste) {
+            Toast.makeText(this, "El alias ingresado no existe", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         // Mostrar diálogo de confirmación
         mostrarDialogoConfirmacion();
     }
@@ -155,6 +169,22 @@ public class TransferenciaMonto extends AppCompatActivity {
     }
 
     private void realizarTransferencia() {
+        //  Obtener el ID del usuario destinatario
+        aliasDAO.abrir();
+        int idUsuarioDestino = aliasDAO.obtenerIdUsuarioPorAlias(alias);
+        aliasDAO.cerrar();
+
+        if (idUsuarioDestino == -1) {
+            Toast.makeText(this, "Error: no se encontró el usuario destinatario", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Validar que no se transfiera a sí mismo
+        if (idUsuarioDestino == idUsuario) {
+            Toast.makeText(this, "No puedes transferir a tu propio alias", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         // Obtener fecha y hora actual
         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
@@ -166,11 +196,11 @@ public class TransferenciaMonto extends AppCompatActivity {
         transaccionDAO.abrir();
         String numeroOperacion = transaccionDAO.generarNumeroOperacion();
 
-        // Crear objeto Transaccion
-        Transaccion transaccion = new Transaccion(
+        // Crear transacción del emisor (débito)
+        Transaccion transaccionEmisora = new Transaccion(
                 idUsuario,
-                1,
-                1,
+                1, // tipo transferencia
+                1, // estado
                 monto,
                 "Transferencia a " + alias,
                 fecha, hora,
@@ -178,29 +208,60 @@ public class TransferenciaMonto extends AppCompatActivity {
                 alias
         );
 
-        // Insertar transacción
-        long resultado = transaccionDAO.nuevaTransaccion(transaccion);
+        // Crear transacción del receptor (crédito)
+        aliasDAO.abrir();
+        com.cristaldo.kharon.models.Alias aliasEmisor = aliasDAO.obtenerAliasPorUsuario(idUsuario);
+        aliasDAO.cerrar();
+
+        String nombreAliasEmisor = (aliasEmisor != null) ? aliasEmisor.getNombreAlias() : "Usuario";
+
+        Transaccion transaccionReceptora = new Transaccion(
+                idUsuarioDestino,
+                2,
+                1,
+                monto,
+                "Transferencia recibida de " + nombreAliasEmisor,
+                fecha, hora,
+                numeroOperacion,
+                alias
+        );
+
+        // Insertar ambas transacciones
+        long resultadoEmisora = transaccionDAO.nuevaTransaccion(transaccionEmisora);
+        long resultadoReceptora = transaccionDAO.nuevaTransaccion(transaccionReceptora);
         transaccionDAO.cerrar();
 
-        if (resultado != -1) {
-            // Actualizar saldo del usuario
-            double nuevoSaldo = saldoDisponible - monto;
+        if (resultadoEmisora != -1 && resultadoReceptora != -1) {
             usuarioDAO.abrir();
-            int filasActualizadas = usuarioDAO.actualizarSaldo(idUsuario, nuevoSaldo);
-            usuarioDAO.cerrar();
 
-            if (filasActualizadas > 0) {
-                // Transferencia exitosa
-                Toast.makeText(this, "Transferencia exitosa", Toast.LENGTH_SHORT).show();
+            // Restar saldo al emisor
+            double nuevoSaldoEmisor = saldoDisponible - monto;
+            int filasActualizadasEmisor = usuarioDAO.actualizarSaldo(idUsuario, nuevoSaldoEmisor);
 
-                // volver a inicio
-                Intent intent = new Intent(TransferenciaMonto.this, Inicio.class);
-                intent.putExtra("idUsuario", idUsuario);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-                finish();
+            // NUEVO: Sumar saldo al receptor
+            Usuario usuarioDestino = usuarioDAO.obtenerUsuarioPorId(idUsuarioDestino);
+            if (usuarioDestino != null) {
+                double nuevoSaldoReceptor = usuarioDestino.getSaldoDisponible() + monto;
+                int filasActualizadasReceptor = usuarioDAO.actualizarSaldo(idUsuarioDestino, nuevoSaldoReceptor);
+
+                usuarioDAO.cerrar();
+
+                if (filasActualizadasEmisor > 0 && filasActualizadasReceptor > 0) {
+                    // Transferencia exitosa
+                    Toast.makeText(this, "Transferencia exitosa", Toast.LENGTH_SHORT).show();
+
+                    // volver a inicio
+                    Intent intent = new Intent(TransferenciaMonto.this, Inicio.class);
+                    intent.putExtra("idUsuario", idUsuario);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Toast.makeText(this, "Error al actualizar saldos", Toast.LENGTH_SHORT).show();
+                }
             } else {
-                Toast.makeText(this, "Error al actualizar saldo", Toast.LENGTH_SHORT).show();
+                usuarioDAO.cerrar();
+                Toast.makeText(this, "Error al obtener datos del destinatario", Toast.LENGTH_SHORT).show();
             }
         } else {
             Toast.makeText(this, "Error al realizar la transferencia", Toast.LENGTH_SHORT).show();
