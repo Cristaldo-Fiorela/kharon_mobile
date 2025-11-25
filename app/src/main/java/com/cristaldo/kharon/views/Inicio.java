@@ -2,7 +2,7 @@ package com.cristaldo.kharon.views;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,7 +14,7 @@ import com.cristaldo.kharon.R;
 
 public class Inicio extends AppCompatActivity {
 
-    private Button btnTransferirView;
+    private View btnTransferirView;
     private int idUsuario;
 
     @Override

@@ -5,33 +5,336 @@
     android:id="@+id/inicio"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grisOscuro"
+    android:background="@color/grisClaro"
     tools:context=".views.Inicio">
 
+    <!-- TOOLBAR-->
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toolbarContainer"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:padding="20dp"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="10dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/indigoOscuro"
+        >
 
-        <Button
-            style="@style/TituloMediano"
-            android:id="@+id/btnTransferirV"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/toolbarMenu"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="TRANSFERIR"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/button"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            />
+            >
+            <ImageView
+                android:id="@+id/backBtnToolbarMenu"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/kharon_logo"
+                app:tint="#FBC02D"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/backBtnToolbarMenu"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+            <TextView
+                style="@style/TituloMediano"
+                android:id="@+id/tituloToolbarMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Hola, "
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/backBtnToolbarMenu"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:textColor="@color/white"
+                android:layout_marginStart="15dp"
+
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- SECCION SALDO-->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/saldoContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/indigo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbarContainer">
+
+        <ImageView
+            android:id="@+id/columnaDerecha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/columna"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/columnaIzquierda"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleX="-1"
+            android:src="@drawable/columna"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--    CARD DE SALDO -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/saldoCard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:background="@drawable/card"
+            android:padding="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/labelSaldo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Saldo disponible"
+                android:textColor="@color/grisIntermedio"
+                app:layout_constraintBottom_toTopOf="@id/saldo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/saldo"
+                style="@style/TituloGrande"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$0.0"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/labelSaldo" />
+
+            <!--  BOTONES-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btnSaldoContainer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingVertical="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/saldo">
+
+                <!-- Botón Ingresar -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/btnIngresar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="8dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    app:layout_constraintEnd_toStartOf="@id/divider1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/imgIngresar"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:contentDescription="Ingresar"
+                        android:src="@drawable/ingresar"
+                        app:tint="@color/grisIntermedio"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <TextView
+                        android:id="@+id/labelIngresar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Ingresar"
+                        android:textColor="@color/grisIntermedio"
+                         android:textSize="12sp"                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="@id/imgIngresar"
+                        app:layout_constraintStart_toStartOf="@id/imgIngresar"
+                        app:layout_constraintTop_toBottomOf="@id/imgIngresar" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Divisor 1 -->
+                <View
+                    android:id="@+id/divider1"
+                    android:layout_width="1dp"
+                    android:layout_height="0dp"
+                    android:background="@color/grisClaro"
+                    app:layout_constraintTop_toTopOf="@id/btnIngresar"
+                    app:layout_constraintBottom_toBottomOf="@id/btnIngresar"
+                    app:layout_constraintStart_toEndOf="@id/btnIngresar"
+                    app:layout_constraintEnd_toStartOf="@id/btnTransferirV" />
+
+                <!-- Botón Transferir -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/btnTransferirV"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="8dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    app:layout_constraintEnd_toStartOf="@id/divider2"
+                    app:layout_constraintStart_toEndOf="@id/divider1"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/imgTransferir"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:contentDescription="Transferir"
+                        android:src="@drawable/transferir"
+                        app:tint="@color/indigo"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <TextView
+                        android:id="@+id/labelTransferir"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Transferir"
+                        android:textColor="@color/indigo"
+                         android:textSize="12sp"                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="@id/imgTransferir"
+                        app:layout_constraintStart_toStartOf="@id/imgTransferir"
+                        app:layout_constraintTop_toBottomOf="@id/imgTransferir" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Divisor 2 -->
+                <View
+                    android:id="@+id/divider2"
+                    android:layout_width="1dp"
+                    android:layout_height="0dp"
+                    android:background="@color/grisClaro"
+                    app:layout_constraintTop_toTopOf="@id/btnTransferirV"
+                    app:layout_constraintBottom_toBottomOf="@id/btnTransferirV"
+                    app:layout_constraintStart_toEndOf="@id/btnTransferirV"
+                    app:layout_constraintEnd_toStartOf="@id/btnPagar" />
+
+                <!-- Botón Pagar Servicios -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/btnPagar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="8dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    app:layout_constraintEnd_toStartOf="@id/divider3"
+                    app:layout_constraintStart_toEndOf="@id/divider2"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/imgPagar"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:contentDescription="Servicios"
+                        android:src="@drawable/servicios"
+                        app:tint="@color/grisIntermedio"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <TextView
+                        android:id="@+id/labelPagar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Servicios"
+                        android:textAlignment="center"
+                        android:textColor="@color/grisIntermedio"
+                         android:textSize="12sp"                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="@id/imgPagar"
+                        app:layout_constraintStart_toStartOf="@id/imgPagar"
+                        app:layout_constraintTop_toBottomOf="@id/imgPagar" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Divisor 3 -->
+                <View
+                    android:id="@+id/divider3"
+                    android:layout_width="1dp"
+                    android:layout_height="0dp"
+                    android:background="@color/grisClaro"
+                    app:layout_constraintTop_toTopOf="@id/btnPagar"
+                    app:layout_constraintBottom_toBottomOf="@id/btnPagar"
+                    app:layout_constraintStart_toEndOf="@id/btnPagar"
+                    app:layout_constraintEnd_toStartOf="@id/btnAlias" />
+
+                <!-- Botón Tu Alias -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/btnAlias"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="8dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/divider3"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/imgAlias"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:contentDescription="Tu alias"
+                        android:src="@drawable/alias"
+                        app:tint="@color/grisIntermedio"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <TextView
+                        android:id="@+id/labelAlias"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Tu Alias"
+                        android:textColor="@color/grisIntermedio"
+                         android:textSize="12sp"                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="@id/imgAlias"
+                        app:layout_constraintStart_toStartOf="@id/imgAlias"
+                        app:layout_constraintTop_toBottomOf="@id/imgAlias" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--    <Button-->
+<!--        style="@style/TituloMediano"-->
+<!--        android:id="@+id/btnTransferirVV"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="TRANSFERIR"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:background="@drawable/button"-->
+<!--        android:textColor="@color/white"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
