@@ -199,8 +199,8 @@ public class TransferenciaMonto extends AppCompatActivity {
         // Crear transacción del emisor (débito)
         Transaccion transaccionEmisora = new Transaccion(
                 idUsuario,
-                1, // tipo transferencia
-                1, // estado
+                1,
+                1,
                 monto,
                 "Transferencia a " + alias,
                 fecha, hora,
@@ -238,7 +238,7 @@ public class TransferenciaMonto extends AppCompatActivity {
             double nuevoSaldoEmisor = saldoDisponible - monto;
             int filasActualizadasEmisor = usuarioDAO.actualizarSaldo(idUsuario, nuevoSaldoEmisor);
 
-            // NUEVO: Sumar saldo al receptor
+            // Sumar saldo al receptor
             Usuario usuarioDestino = usuarioDAO.obtenerUsuarioPorId(idUsuarioDestino);
             if (usuarioDestino != null) {
                 double nuevoSaldoReceptor = usuarioDestino.getSaldoDisponible() + monto;
