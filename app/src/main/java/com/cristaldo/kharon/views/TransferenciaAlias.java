@@ -7,6 +7,7 @@ import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.cristaldo.kharon.R;
+import com.cristaldo.kharon.dao.AliasDAO;
 
 public class TransferenciaAlias extends AppCompatActivity {
     private int idUsuario;
@@ -22,6 +24,8 @@ public class TransferenciaAlias extends AppCompatActivity {
     private EditText etAlias;
     private String alias;
     private ImageView backBtnToolbarAlias;
+
+    private AliasDAO aliasDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +37,7 @@ public class TransferenciaAlias extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        aliasDAO = new AliasDAO(this);
         alias = "";
 
         Intent intent = getIntent();
@@ -63,6 +68,16 @@ public class TransferenciaAlias extends AppCompatActivity {
 
         btnAliasSgt.setOnClickListener(v -> {
             alias = etAlias.getText().toString().trim();
+
+            // NUEVO: Validar que el alias exista
+            aliasDAO.abrir();
+            boolean aliasExiste = aliasDAO.existeAlias(alias);
+            aliasDAO.cerrar();
+
+            if (!aliasExiste) {
+                Toast.makeText(this, "El alias ingresado no existe", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
             Intent navegacion = new Intent(TransferenciaAlias.this, TransferenciaMonto.class);
             navegacion.putExtra("idUsuario", idUsuario);

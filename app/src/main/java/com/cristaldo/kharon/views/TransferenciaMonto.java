@@ -140,16 +140,6 @@ public class TransferenciaMonto extends AppCompatActivity {
             return;
         }
 
-        // NUEVO: Validar que el alias exista
-        aliasDAO.abrir();
-        boolean aliasExiste = aliasDAO.existeAlias(alias);
-        aliasDAO.cerrar();
-
-        if (!aliasExiste) {
-            Toast.makeText(this, "El alias ingresado no existe", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
         // Mostrar diálogo de confirmación
         mostrarDialogoConfirmacion();
     }
