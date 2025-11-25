@@ -17,7 +17,7 @@ public class Usuario {
     }
 
     //  constructor con ID para objetos que se seleccionan de la DB (ya existen)
-    public Usuario(int idUsuario, String password, String username, double saldoDisponible) {
+    public Usuario(int idUsuario, String username, String password,  double saldoDisponible) {
         this.idUsuario = idUsuario;
         this.password = password;
         this.username = username;
