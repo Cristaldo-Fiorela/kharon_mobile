@@ -43,8 +43,6 @@ public class TransferenciaAlias extends AppCompatActivity {
         btnAliasSgt.setEnabled(false);
         etAlias = findViewById(R.id.inputAlias);
 
-        alias = etAlias.getText().toString().trim();
-
         backBtnToolbarAlias.setOnClickListener(v -> {
             getOnBackPressedDispatcher().onBackPressed();
         });
@@ -63,13 +61,13 @@ public class TransferenciaAlias extends AppCompatActivity {
             public void afterTextChanged(Editable s) {}
         });
 
-        if(btnAliasSgt.isEnabled()) {
-            btnAliasSgt.setOnClickListener(v -> {
-                Intent navegacion = new Intent(TransferenciaAlias.this, TransferenciaMonto.class);
-                navegacion.putExtra("idUsuario", idUsuario);
-                navegacion.putExtra("alias", alias);
-                startActivity(navegacion);
-            });
-        }
+        btnAliasSgt.setOnClickListener(v -> {
+            alias = etAlias.getText().toString().trim();
+
+            Intent navegacion = new Intent(TransferenciaAlias.this, TransferenciaMonto.class);
+            navegacion.putExtra("idUsuario", idUsuario);
+            navegacion.putExtra("alias", alias);
+            startActivity(navegacion);
+        });
     }
 }

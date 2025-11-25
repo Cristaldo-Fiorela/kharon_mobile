@@ -29,7 +29,7 @@ public class Inicio extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        idUsuario = intent.getIntExtra("usuarioId", -1);
+        idUsuario = intent.getIntExtra("idUsuario", -1);
 
         // vinculacion con view
         btnTransferirView = findViewById(R.id.btnTransferirV);

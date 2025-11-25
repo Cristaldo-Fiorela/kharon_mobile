@@ -89,8 +89,13 @@ public class TransferenciaMonto extends AppCompatActivity {
         });
     }
     private void cargarDatosUsuario() {
+        android.util.Log.d("TransferenciaMonto", "ID Usuario recibido: " + idUsuario);
+
         usuarioDAO.abrir();
         Usuario usuario = usuarioDAO.obtenerUsuarioPorId(idUsuario);
+
+        android.util.Log.d("TransferenciaMonto", "Usuario encontrado: " + (usuario != null));
+
         usuarioDAO.cerrar();
 
         if (usuario != null) {
