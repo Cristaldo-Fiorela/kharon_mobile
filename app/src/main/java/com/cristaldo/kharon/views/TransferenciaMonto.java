@@ -164,18 +164,17 @@ public class TransferenciaMonto extends AppCompatActivity {
         // Crear objeto Transaccion
         Transaccion transaccion = new Transaccion(
                 idUsuario,
-                1,  // idTipoTransaccion: 1 = Transferencia enviada
+                1,
+                1,
                 monto,
                 "Transferencia a " + alias,
-                fecha,
-                hora,
+                fecha, hora,
                 numeroOperacion,
-                1,  // idEstado: 1 = Exitosa
-                alias  // cvuDestino (en tu caso es el alias)
+                alias
         );
 
         // Insertar transacción
-        long resultado = transaccionDAO.insertarTransaccion(transaccion);
+        long resultado = transaccionDAO.nuevaTransaccion(transaccion);
         transaccionDAO.cerrar();
 
         if (resultado != -1) {
@@ -189,9 +188,9 @@ public class TransferenciaMonto extends AppCompatActivity {
                 // Transferencia exitosa
                 Toast.makeText(this, "Transferencia exitosa", Toast.LENGTH_SHORT).show();
 
-                // Ir a pantalla de detalle o volver a inicio
+                // volver a inicio
                 Intent intent = new Intent(TransferenciaMonto.this, Inicio.class);
-                intent.putExtra("usuarioId", idUsuario);
+                intent.putExtra("idUsuario", idUsuario);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 finish();
