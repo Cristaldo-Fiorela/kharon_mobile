@@ -104,7 +104,7 @@ public class TransferenciaMonto extends AppCompatActivity {
 
         if (usuario != null) {
             saldoDisponible = usuario.getSaldoDisponible();
-            txtSaldoDisponible.setText("Saldo disponible: $" + String.format(Locale.getDefault(), "%.2f", saldoDisponible));
+            txtSaldoDisponible.setText("Saldo disponible: $" + String.format(Locale.forLanguageTag("es-AR"), "%.2f", saldoDisponible));
         } else {
             Toast.makeText(this, "Error al cargar datos del usuario", Toast.LENGTH_SHORT).show();
             finish();
@@ -147,8 +147,8 @@ public class TransferenciaMonto extends AppCompatActivity {
     private void mostrarDialogoConfirmacion() {
         String mensaje = "¿Confirmar transferencia?\n\n" +
                 "Destino: " + alias + "\n" +
-                "Monto: $" + String.format(Locale.getDefault(), "%.2f", monto) + "\n" +
-                "Saldo restante: $" + String.format(Locale.getDefault(), "%.2f", (saldoDisponible - monto));
+                "Monto: $" + String.format(Locale.forLanguageTag("es-AR"), "%.2f", monto) + "\n" +
+                "Saldo restante: $" + String.format(Locale.forLanguageTag("es-AR"), "%.2f", (saldoDisponible - monto));
 
         new AlertDialog.Builder(this)
                 .setTitle("Confirmar transferencia")

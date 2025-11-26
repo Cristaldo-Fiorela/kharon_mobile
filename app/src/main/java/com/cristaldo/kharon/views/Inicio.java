@@ -76,7 +76,7 @@ public class Inicio extends AppCompatActivity {
 
         if (usuario != null) {
             txtTituloToolbar.setText("Hola, " + usuario.getUsername());
-            txtSaldo.setText("$" + String.format(Locale.getDefault(), "%.2f", usuario.getSaldoDisponible()));
+            txtSaldo.setText("$" + String.format(Locale.forLanguageTag("es-AR"), "%.2f", usuario.getSaldoDisponible()));
         }
     }
 
@@ -128,9 +128,9 @@ public class Inicio extends AppCompatActivity {
         // Formatear monto (negativo si es transferencia enviada)
         String montoTexto;
         if (transaccion.getIdTipoTransaccion() == 1) {
-            montoTexto = "-$" + String.format(Locale.getDefault(), "%.2f", transaccion.getMonto());
+            montoTexto = "-$" + String.format(Locale.forLanguageTag("es-AR"), "%.2f", transaccion.getMonto());
         } else {
-            montoTexto = "+$" + String.format(Locale.getDefault(), "%.2f", transaccion.getMonto());
+            montoTexto = "+$" + String.format(Locale.forLanguageTag("es-AR"), "%.2f", transaccion.getMonto());
             txtOperacionMonto.setTextColor(getResources().getColor(R.color.verde));
             ivMovimientoIcono.setImageResource(R.drawable.recibido);
         }
