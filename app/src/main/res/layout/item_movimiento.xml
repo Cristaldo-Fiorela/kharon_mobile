@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="10dp">
+
+    <ImageView
+        android:id="@+id/operacionIcono"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/transferir"
+        app:tint="@color/grisOscuro"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <!-- Detalles Operacion -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/operacionDetalles"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="10dp"
+        app:layout_constraintStart_toEndOf="@id/operacionIcono"
+        app:layout_constraintEnd_toStartOf="@id/montoOperacionDetalles"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:id="@+id/tipoOperacion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Transferencia enviada"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/estadoOperacion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Exitosa"
+            android:textColor="@color/grisOscuro"
+            android:textStyle="italic"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tipoOperacion" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- DETALLE MONTO -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/montoOperacionDetalles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:id="@+id/operacionMonto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-$12.000,00"
+            android:textColor="@color/black"
+            style="@style/TituloChico"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/operacionFecha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12/08"
+            android:textColor="@color/grisOscuro"
+            android:textSize="12sp"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/operacionMonto"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

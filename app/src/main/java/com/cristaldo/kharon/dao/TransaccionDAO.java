@@ -33,7 +33,7 @@ public class TransaccionDAO {
     public long nuevaTransaccion(Transaccion transaccion) {
         ContentValues valores = new ContentValues();
         valores.put("idEstado", transaccion.getIdEstado());
-        valores.put("idTipoTransaccion", transaccion.getIdTransaccion());
+        valores.put("idTipoTransaccion", transaccion.getIdTipoTransaccion());
         valores.put("idUsuario", transaccion.getIdUsuario());
         valores.put("monto", transaccion.getMonto());
         valores.put("descripcion", transaccion.getDescripcion());
@@ -65,8 +65,8 @@ public class TransaccionDAO {
                     cursor.getString(cursor.getColumnIndexOrThrow("descripcion")),
                     cursor.getString(cursor.getColumnIndexOrThrow("fecha")),
                     cursor.getString(cursor.getColumnIndexOrThrow("hora")),
-                    cursor.getString(cursor.getColumnIndexOrThrow("numero_operacion")),
-                    cursor.getString(cursor.getColumnIndexOrThrow("cvu_destino"))
+                    cursor.getString(cursor.getColumnIndexOrThrow("numeroOperacion")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("cvuDestino"))
             );
             transacciones.add(transaccion);
         }
@@ -94,8 +94,8 @@ public class TransaccionDAO {
                     cursor.getString(cursor.getColumnIndexOrThrow("descripcion")),
                     cursor.getString(cursor.getColumnIndexOrThrow("fecha")),
                     cursor.getString(cursor.getColumnIndexOrThrow("hora")),
-                    cursor.getString(cursor.getColumnIndexOrThrow("numero_operacion")),
-                    cursor.getString(cursor.getColumnIndexOrThrow("cvu_destino"))
+                    cursor.getString(cursor.getColumnIndexOrThrow("numeroOperacion")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("cvuDestino"))
             );
         }
 
@@ -123,8 +123,8 @@ public class TransaccionDAO {
                     cursor.getString(cursor.getColumnIndexOrThrow("descripcion")),
                     cursor.getString(cursor.getColumnIndexOrThrow("fecha")),
                     cursor.getString(cursor.getColumnIndexOrThrow("hora")),
-                    cursor.getString(cursor.getColumnIndexOrThrow("numero_operacion")),
-                    cursor.getString(cursor.getColumnIndexOrThrow("cvu_destino"))
+                    cursor.getString(cursor.getColumnIndexOrThrow("numeroOperacion")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("cvuDestino"))
             );
             transacciones.add(transaccion);
         }
