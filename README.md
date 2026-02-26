@@ -56,6 +56,10 @@ Las principales entidades del sistema y sus relaciones:
 | `Movimiento` | Historial de transacciones |
 
 Las relaciones fueron diseñadas previamente en tablas para visualizar cómo interactúan las entidades antes de comenzar a codear.
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/40a4a9fe-3174-48ce-8b74-bf68bce7352e" width="600" alt="Modelo de entidades"/>
+</p>
+
 
 ---
 
